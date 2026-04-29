@@ -31,19 +31,6 @@ Slides and Python notebooks available at - https://jduckles.github.io/loratalk
 
 ---
 
-## Agenda
-
-- What is LoRa?
-- Terminology & Technical Basics
-- Spectrum & Regulations
-- Chirp Spread Spectrum Explained
-- Hardware Options
-- Local Mesh Status
-- Live Demo: Meshtastic App
-- Getting Started
-
----
-
 # What is LoRa?
 
 ----
@@ -211,12 +198,38 @@ These are community developed open source projects that are using the low-cost, 
 
 ----
 
+# What happened to Meshtastic!?
+
+- Two major flaws 
+    - Flood always model causing a traffic Denial of Service 
+    - Internet connected MQTT further causing airtime utilization overwhelm
+
+- MeshCore created to make a firmware that learns from Meshtastic's mistakes. 
+    - Fixed repeaters (don't put a "repeater" in your car...PLEASE!)
+    - Companion nodes 
+    - Room Servers
+    - Observer nodes and more
+
+
+----
+
 ## MeshCore Presets in New Zealand
 
 | Preset           | Spreading Factor | Channel | Coding Rate |
 | ---------------- | ---------------- | ------- | ----------- |
 | NZ Narrow Preset | 7                | 62.5kHz | 5           |
 | NZ Preset        | 11               | 250kHz  | 5           |
+
+Talk of switching "NZ Preset to be SF 7 / 62.5kHz Preset"
+
+---
+
+# MeshCore Community
+
+There has been some drama in the last week where one guy in the UK tried to take some amount of control over the "MeshCore" trademark and filed paperwork without telling others. The entire community has basically abandoned his website and is now using https://meshcore.io for everything. Do not go to a URL anymore for some country with a Union Jack flag as its URL tld. 
+
+
+To get involed in the MeshCore.io discord server go to - https://discord.gg/YGpzsftS
 
 ---
 
