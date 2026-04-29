@@ -136,6 +136,11 @@ We're trading off sensitivity and data rate while operating in a fixed-bandwidth
 
 ![width:800 ctr](https://pad.duckles.nz/uploads/4285e350-a8fa-4d7e-a9bc-b8f83533e215.png)
 
+---
+
+Fourier transform: time domain, frequency domain and time-frequency domain. 
+
+![](https://pad.duckles.nz/uploads/acc7e431-7dbc-4d25-8c15-fc30ec3640d4.png)
 
 ----
 
