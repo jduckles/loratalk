@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Set location of hedgedoc working pad where presentation is being worked on
+export HEDGEDOC_SERVER='https://pad.duckles.nz'
+export HEDGEDOC_COOKIES_FILE=~/config/hedgedoc/key.conf
+
+# Use hedgedoc cli to download md pad and compile it to --html and --pdf
+hedgedoc export --md "PgnBQ04ES7-9UkfFy4DjVA" lora_presentation.md && npx @marp-team/marp-cli@latest lora_presentation.md --html
+
+hedgedoc export --md "PgnBQ04ES7-9UkfFy4DjVA" lora_presentation.md && npx @marp-team/marp-cli@latest lora_presentation.md --pdf
