@@ -555,8 +555,6 @@ Seen on On [NZ regional-channel of meshcore.io Discord](https://discord.com/chan
 
 Seen on On [NZ regional-channel of meshcore.io Discord](https://discord.com/channels/1495203904898728149/1495412712505606315/1497169474179170415) by jon CLD1
 
-
-
 ---
 
 
@@ -620,14 +618,14 @@ These tools are in the MeshCore app under "Tools"
 
 ### Test coverage of a repeater node at Mt. Cargill 
 
-![width:800](https://pad.duckles.nz/uploads/bc99d944-6670-49c7-b7f9-62fe17f04cb7.png)
+![width:800 ctr](https://pad.duckles.nz/uploads/bc99d944-6670-49c7-b7f9-62fe17f04cb7.png)
 
 
 --- 
 
 ### Test Line of Sight from Karatei Rd. to Bull Creek (ZL4UC's crib)
 
-![](https://pad.duckles.nz/uploads/8ab83c14-0567-4d5f-815e-4b38461afb2e.png)
+![width:800 ctr](https://pad.duckles.nz/uploads/8ab83c14-0567-4d5f-815e-4b38461afb2e.png)
 
 
 ----
