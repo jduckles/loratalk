@@ -24,13 +24,7 @@ Presented at ZL4AA - Dunedin Amateur Radio Club Branch 30 NZART
 
 ---
 
-
-Disclaimer - I know less about much of this than others, and more than some. Your mileage may vary. Past performance is not necissarily indicitive of future resultes. It takes a village. 
-
-
----
-
-![width: 600 ctr](https://pad.duckles.nz/uploads/34e3ee8e-88b3-4fcd-bd86-a3e04716a767.png)
+![width:600 ctr](https://pad.duckles.nz/uploads/34e3ee8e-88b3-4fcd-bd86-a3e04716a767.png)
 
 
 ---
