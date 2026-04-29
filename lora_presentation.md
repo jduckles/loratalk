@@ -129,18 +129,18 @@ We're trading off sensitivity and data rate while operating in a fixed-bandwidth
 
 ---
 
-**Disclaimer - What follows isn't strictly accurate, but is a simplification which can help us in building some intuition about CSS and how it works**
+
+![width:700 ctr](https://pad.duckles.nz/uploads/4285e350-a8fa-4d7e-a9bc-b8f83533e215.png)
 
 ---
 
-
-![width:800 ctr](https://pad.duckles.nz/uploads/4285e350-a8fa-4d7e-a9bc-b8f83533e215.png)
+![ctr](https://media1.tenor.com/m/jnkEmKebeKsAAAAd/science-explode.gif)
 
 ---
 
 Fourier transform: time domain, frequency domain and time-frequency domain. 
 
-![](https://pad.duckles.nz/uploads/acc7e431-7dbc-4d25-8c15-fc30ec3640d4.png)
+![width:700 ctr](https://pad.duckles.nz/uploads/acc7e431-7dbc-4d25-8c15-fc30ec3640d4.png)
 
 ----
 
@@ -180,6 +180,11 @@ Captured using SDR++ on a HackRF (note LoRa preamble followed by data chips)
 
 ---
 
+![ctr](https://media1.tenor.com/m/JaS15CLLVo8AAAAC/science.gif)
+
+
+---
+
 # Open Mesh Network Firmwares
 
 ----
@@ -191,6 +196,7 @@ These are community developed open source projects that are using the low-cost, 
 - [MeshCore](https://meshcore.io) - Newest kid on the block based on failure modes of meshtastic
 - [Meshtastic](http://meshtastic.org) - been around a bit longer, but has some fundamental design flaws. 
 - [Reticulum](https://reticulum.network/) - a tool for building networks, including LoRa
+
 
 ----
 
@@ -215,10 +221,22 @@ These are community developed open source projects that are using the low-cost, 
     - Room Servers
     - Observer nodes and more
 
+--- 
+
+## Meshcore Community 
+
+The community had a wee schism this last week. It seems to have mostly been EVERYONE leaving the guy who runs the (.co.uk) domain in the dust and moving to meshcore.io 
+
+![ctr](https://media1.tenor.com/m/k3uajg33vtYAAAAC/itll-be-totally-fine-elle-evans.gif)
+
+To get involed in the MeshCore.io discord server go to - https://discord.gg/YGpzsftS
+
 
 ----
 
 ## MeshCore Presets in New Zealand
+
+There have been two presets in NZ. Spreading factor of 11 does make for better interference resistance and weak link connections, however much of NZ is using SF 7, so the Dunedin communtiy has switched as well. 
 
 | Preset           | Spreading Factor | Channel | Coding Rate |
 | ---------------- | ---------------- | ------- | ----------- |
@@ -229,12 +247,9 @@ Talk of switching "NZ Preset to be SF 7 / 62.5kHz Preset"
 
 ---
 
-# MeshCore Community
-
-There has been some drama in the last week where one guy in the UK tried to take some amount of control over the "MeshCore" trademark and filed paperwork without telling others. The entire community has basically abandoned his website and is now using https://meshcore.io for everything. Do not go to a URL anymore for some country with a Union Jack flag as its URL tld. 
 
 
-To get involed in the MeshCore.io discord server go to - https://discord.gg/YGpzsftS
+
 
 ---
 
@@ -584,10 +599,25 @@ Seen on On [NZ regional-channel of meshcore.io Discord](https://discord.com/chan
 ### Town
 ![width:700 ctr](https://pad.duckles.nz/uploads/726379e9-c071-4673-8671-6ceb42e79ac8.png)
 
+
+---
+
+### Maori Hill repeater view 
+
+Sitting at 48% battery :grimacing: 
+
+![ctr width:800](https://pad.duckles.nz/uploads/c3608a70-e4a1-47e4-b893-f7f341ea8e57.png)
+
+
 ---
 
 ### Waihola and South
 ![width:700 ctr](https://pad.duckles.nz/uploads/4b786ca3-b093-4a29-9e95-69a324c177bf.png)
+
+
+---
+
+![width:800 ctr](https://pad.duckles.nz/uploads/13db49af-dee2-4c1b-a309-c8ead9ebe182.png)
 
 
 ---
