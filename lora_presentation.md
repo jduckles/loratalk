@@ -579,12 +579,12 @@ Seen on On [NZ regional-channel of meshcore.io Discord](https://discord.com/chan
 ---
 
 ### Town
-![width:800](https://pad.duckles.nz/uploads/726379e9-c071-4673-8671-6ceb42e79ac8.png)
+![width:700 ctr](https://pad.duckles.nz/uploads/726379e9-c071-4673-8671-6ceb42e79ac8.png)
 
 ---
 
 ### Waihola and South
-![width:800](https://pad.duckles.nz/uploads/4b786ca3-b093-4a29-9e95-69a324c177bf.png)
+![width:700 ctr](https://pad.duckles.nz/uploads/4b786ca3-b093-4a29-9e95-69a324c177bf.png)
 
 
 ---
@@ -634,6 +634,9 @@ These tools are in the MeshCore app under "Tools"
 
 ## Your First Node
 
+
+<div style="font-size:14px">
+
 **Step 1**: Choose hardware
 - Heltec, RAK, Seed Studio etc. 
 
@@ -649,9 +652,13 @@ These tools are in the MeshCore app under "Tools"
 - Set region to NZ Narrow
 - Post in Public 
 
+</div>
+
 ---
 
 ## Thank You! 
+
+https://jduckles.github.io/loratalk/
 
 
 
