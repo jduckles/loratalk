@@ -15,12 +15,14 @@ table {
 
 
 
-## Mesh Networking in the Lower South Island
+## Mesh Networking on the New Zealand Lower South Island
 
 *Jonah Duckles / ZL4EKA*
 Presented at ZL4AA - Dunedin Amateur Radio Club Branch 30 NZART
 *April 30, 2026*
 [jonah@duckles.org](mailto:jonah@duckles.org)
+
+Slides and Python notebooks available at - https://jduckles.github.io/loratalk
 
 ---
 
@@ -140,6 +142,10 @@ We're trading off sensitivity and data rate while operating in a fixed-bandwidth
 
 ---
 
+**Disclaimer - What follows isn't strictly accurate, but is a simplification which can help us in building some intuition about CSS and how it works**
+
+---
+
 
 ![width:800 ctr](https://pad.duckles.nz/uploads/4285e350-a8fa-4d7e-a9bc-b8f83533e215.png)
 
@@ -168,7 +174,7 @@ We're trading off sensitivity and data rate while operating in a fixed-bandwidth
 
 ---
 
-Actual repeater update packet 
+Actual repeater update packet time in vertical (earlier lower) just like a waterfall on your HF rig / SDR. See preamble and chips of chirps.
 
 ![width:1000 ctr](https://pad.duckles.nz/uploads/7761b32c-59cd-48a0-906b-0d3d5b73e781.png)
 
@@ -238,7 +244,8 @@ SX1262
 
 - Current recommended chip
 - 150-960 MHz
-- Much lower power (~5mA RX vs ~100mA)
+- 22dBm Transmit - ~ 0.154 W
+- Much lower power usage (~5mA RX vs ~100mA)
 - Better sensitivity (-148 dBm vs -137 dBm)
 - Longer range potential
 - ✅ This is what you want in new hardware at the moment
@@ -272,12 +279,13 @@ SX1262
 ## Popular nRF52 Boards
 
 **RAK4631 WisBlock**
-- Best nRF option
+
+- most popular nRF option
 - Modular (can include screen, sensors and/or GPS for more cost)
 - Excellent battery life
 - ~$40+ USD
 
-
+Other nRF options from Seed Studio and Heltec. 
 
 
 ----
