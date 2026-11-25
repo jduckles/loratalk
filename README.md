@@ -6,6 +6,13 @@ The presentation slides are [available here](https://jduckles.github.io/loratalk
 
 The figures in `figures/` are drawn by `lora_figures.py` in the [baleen](https://github.com/jduckles/visual) style. `python3 lora_figures.py` redraws all of them, and `python3 lora_figures.py sf_tradeoff` redraws one. `./build` redraws the figures and the slides; `./build pdf` adds a PDF where Chrome is installed. Photos, maps and screenshots are in `images/`.
 
+To check that every slide still fits 1280×720 after an edit, `tools/fitcheck.py` estimates how full each slide is from the Barlow font metrics and the theme's sizes (it isn't a browser render, so look at anything over about 95% in the preview):
+
+```sh
+npx @marp-team/marp-cli@4 lora_presentation.md --theme-set themes/baleen.css --html --template bare -o /tmp/bare.html
+python3 tools/fitcheck.py /tmp/bare.html .
+```
+
 Click on Launch Binder links below to open in MyBinder.org and mess around with the Python. 
 
 - Open Spreading Factor explainer graphic Jupyter Notebook - [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jduckles/loratalk/HEAD?urlpath=%2Fdoc%2Ftree%2Fspreading_factor.ipynb)

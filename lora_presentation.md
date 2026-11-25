@@ -232,13 +232,13 @@ The original image for this slide was lost with the pad; this chart replaces it.
 
 ---
 
-<!-- _class: screenshot -->
+<!-- _class: screenshot compact -->
 
 # A real repeater packet, seen on a waterfall
 
 Packet time runs up the page (earlier is lower), just like a waterfall on your HF rig or SDR. See the preamble, then the chirps.
 
-![w:1100](images/sdr-waterfall.png)
+![h:280](images/sdr-waterfall.png)
 
 <span class="small muted">Captured with SDR++ on a HackRF. Note the LoRa preamble followed by the data chirps.</span>
 
@@ -310,7 +310,7 @@ These are community-developed open source projects. Low-cost, low-power hardware
 
 The community had a wee schism this last week. It mostly seems to be everyone leaving the person who runs the .co.uk domain in the dust and moving to meshcore.io.
 
-![h:300](https://media1.tenor.com/m/k3uajg33vtYAAAAC/itll-be-totally-fine-elle-evans.gif)
+![h:190](https://media1.tenor.com/m/k3uajg33vtYAAAAC/itll-be-totally-fine-elle-evans.gif)
 
 Get involved on the MeshCore.io Discord: https://discord.gg/YGpzsftS
 
@@ -357,7 +357,7 @@ Talk of switching "NZ Preset" to SF7 / 62.5 kHz as well.
 
 # Inside the SX1262
 
-![w:1000](images/sx1262-block-diagram.png)
+![h:400](images/sx1262-block-diagram.png)
 
 ---
 
@@ -614,7 +614,7 @@ Buy RAK equipment from the **RAK Official Store**.
 <div class="columns wide-left">
 <div>
 
-![h:470](images/repeater-v0-maori-hill.jpg)
+![h:400](images/repeater-v0-maori-hill.jpg)
 
 </div>
 <div>
@@ -637,7 +637,7 @@ Buy RAK equipment from the **RAK Official Store**.
 <div class="columns wide-left">
 <div>
 
-![h:470](images/repeater-v1-enclosure.jpg)
+![h:400](images/repeater-v1-enclosure.jpg)
 
 </div>
 <div>
@@ -660,15 +660,15 @@ Buy RAK equipment from the **RAK Official Store**.
 
 # v1.0 Waihola
 
-![h:470](images/repeater-v1-waihola.jpg)
+![h:400](images/repeater-v1-waihola.jpg)
 
 ---
 
-<!-- _class: screenshot -->
+<!-- _class: screenshot compact -->
 
 # 3 to 4 weeks on two 18650s with no solar input
 
-![w:1000](images/repeater-battery-no-solar.png)
+![h:350](images/repeater-battery-no-solar.png)
 
 <span class="small muted">RAK4631</span>
 
@@ -678,7 +678,7 @@ Buy RAK equipment from the **RAK Official Store**.
 
 # v0.0 Waihola and Halfway Bush
 
-![h:470](images/repeater-v0-waihola-halfway-bush.jpg)
+![h:400](images/repeater-v0-waihola-halfway-bush.jpg)
 
 ---
 
@@ -709,7 +709,7 @@ Buy RAK equipment from the **RAK Official Store**.
 
 # Others: ZL4QC and ZL4MDS
 
-![w:1050](images/zl4qc-zl4mds-solar-lights.png)
+![h:400](images/zl4qc-zl4mds-solar-lights.png)
 
 ---
 
@@ -718,14 +718,14 @@ Buy RAK equipment from the **RAK Official Store**.
 <div class="columns">
 <div>
 
-![h:440](images/3d-printed-end-cap.jpg)
+![h:330](images/3d-printed-end-cap.jpg)
 
 [STL on MakerWorld](https://makerworld.com/en/models/2327941-50deg-end-cap-for-bunnings-aldi-solar-light)
 
 </div>
 <div>
 
-![h:470](images/jardin-repeater-mounted.jpg)
+![h:400](images/jardin-repeater-mounted.jpg)
 
 </div>
 </div>
@@ -769,7 +769,7 @@ Buy RAK equipment from the **RAK Official Store**.
 
 # Region
 
-![h:470](images/map-region.jpg)
+![h:400](images/map-region.jpg)
 
 ---
 
@@ -777,7 +777,7 @@ Buy RAK equipment from the **RAK Official Store**.
 
 # Lower South Island
 
-![h:470](images/map-lower-south-island.jpg)
+![h:400](images/map-lower-south-island.jpg)
 
 ---
 
@@ -785,7 +785,7 @@ Buy RAK equipment from the **RAK Official Store**.
 
 # Town
 
-![h:470](images/map-town.jpg)
+![h:400](images/map-town.jpg)
 
 ---
 
@@ -805,7 +805,7 @@ Sitting at 48% battery 😬
 
 # Waihola and south
 
-![h:470](images/map-waihola-south.jpg)
+![h:400](images/map-waihola-south.jpg)
 
 ---
 
@@ -871,15 +871,15 @@ These tools are in the MeshCore app under **Tools**.
 
 # Test coverage of a repeater node at Mt Cargill
 
-![h:470](images/coverage-mt-cargill.jpg)
+![h:400](images/coverage-mt-cargill.jpg)
 
 ---
 
-<!-- _class: screenshot -->
+<!-- _class: screenshot compact -->
 
 # Test line of sight from Karatei Rd to Bull Creek (ZL4UC's crib)
 
-![h:470](images/line-of-sight-bull-creek.jpg)
+![h:400](images/line-of-sight-bull-creek.jpg)
 
 ---
 
