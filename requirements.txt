@@ -2,3 +2,5 @@ numpy
 matplotlib
 ipython
 pillow
+cairosvg
+baleen @ git+https://github.com/jduckles/visual@baleen-v0.1

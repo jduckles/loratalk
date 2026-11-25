@@ -4,8 +4,12 @@
 export HEDGEDOC_SERVER='https://pad.duckles.nz'
 export HEDGEDOC_COOKIES_FILE=~/config/hedgedoc/key.conf
 
+# NOTE: the pad still holds the old deck. Exporting it overwrites the baleen
+# version of lora_presentation.md in this repo, so copy the repo's md into the
+# pad first, or use ./build to rebuild from the repo copy.
+
 # Use hedgedoc cli to download md pad and compile it to --html and --pdf
-hedgedoc export --md "PgnBQ04ES7-9UkfFy4DjVA" lora_presentation.md && npx @marp-team/marp-cli@latest lora_presentation.md --html
+hedgedoc export --md "PgnBQ04ES7-9UkfFy4DjVA" lora_presentation.md && npx @marp-team/marp-cli@latest lora_presentation.md --theme-set themes/baleen.css --html
 
 # Commenting as it was too big 
 #hedgedoc export --md "PgnBQ04ES7-9UkfFy4DjVA" lora_presentation.md && npx @marp-team/marp-cli@latest lora_presentation.md --pdf
