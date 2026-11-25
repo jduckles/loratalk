@@ -1,697 +1,915 @@
+---
+marp: true
+theme: baleen
+size: 16:9
+paginate: true
+footer: 'LoRa & MeshCore · ZL4EKA · ZL4AA, April 2026'
+title: LoRa & MeshCore
+description: Mesh networking on the New Zealand lower South Island
+author: Jonah Duckles (ZL4EKA)
+---
+
+<!-- _class: lead -->
+<!-- _footer: '' -->
+<!-- _paginate: false -->
+
+![bg right:42% contain](images/whale-tile.svg)
+
 # LoRa & MeshCore
 
+## Mesh networking on the New Zealand lower South Island
 
-<style>
-img[alt~="ctr"] {
-  display: block;
-  margin: 0 auto;
-}
-
-table { 
-    margin: 0 auto
-}
-
-</style>
-
-
-
-## Mesh Networking on the New Zealand Lower South Island
-
-*Jonah Duckles / ZL4EKA*
-Presented at ZL4AA - Dunedin Amateur Radio Club Branch 30 NZART
-*April 30, 2026*
+**Jonah Duckles** · ZL4EKA
+ZL4AA, Dunedin Amateur Radio Club, Branch 30 NZART · 30 April 2026
 [jonah@duckles.org](mailto:jonah@duckles.org)
 
-Slides and Python notebooks available at - https://jduckles.github.io/loratalk
+Slides and Python notebooks: [jduckles.github.io/loratalk](https://jduckles.github.io/loratalk)
 
 ---
 
-![width:600 ctr](https://pad.duckles.nz/uploads/34e3ee8e-88b3-4fcd-bd86-a3e04716a767.png)
+<!-- _class: figure -->
 
+![](images/feynman-quote.jpg)
 
 ---
+
+<!-- _class: section -->
+
+![bg right:38%](images/facets-section.svg)
+
+### Part one
 
 # What is LoRa?
 
-----
+---
 
-## LoRa 
+# LoRa: long range, low power, low data rate
 
 **Lo**ng **Ra**nge wireless communication protocol
 
+<div class="columns">
+<div>
+
 - Low power consumption
-- Long range (2-10km urban, 15-40km+ rural)
-- Lowish bandwidth 
-- License-free ISM bands (We're using 915MHz ISM)
+- Long range: 2 to 10 km urban, 15 to 40 km+ rural
+- Lowish bandwidth
+- Licence-free ISM bands (we use 915 MHz)
 - Perfect for IoT and mesh messaging
 
-----
+</div>
+<div>
 
-## LoRa vs LoRaWAN
+<div class="stats">
+<div class="stat krill"><span>40 km+</span><small>rural range from a few milliwatts</small></div>
+</div>
+
+</div>
+</div>
+
+---
+
+# Community meshes use LoRa, not LoRaWAN
 
 | LoRa | LoRaWAN |
 |------|---------|
 | Physical layer | Network protocol |
 | Point-to-point | Star topology |
 | Peer-to-peer capable | Gateway-based |
-| **Community Meshes use LoRa** | Commercial IoT |
-
-----
-
-## Why LoRa for Mesh?
-
-- ✅ Works without infrastructure
-- ✅ Modest battery can last days/weeks
-- ✅ Free to use (ISM bands)
-- ✅ Affordable hardware
-- ❌ Not for high-bandwidth applications
-
-The way we are using it this is NOT a ham radio mode. Though there are VERY interesting things going on with APRS LoRa on 70cm. Stay tuned! 
-
-----
-
-## LoRA's place in the modern world of RF
-
-![width:1000px ctr](https://pad.duckles.nz/uploads/d1005f7e-7a95-4fb4-a6d0-b1c0457ad647.png)
+| **Community meshes use LoRa** | Commercial IoT |
 
 ---
 
-# Frequency Bands & Regulations
+# Why LoRa for mesh?
 
-----
+<div class="columns">
+<div>
 
-## ISM Bands Available
+### Good at
 
-| Region | Frequency | Power Limit | Duty Cycle |
+- Works without infrastructure
+- A modest battery lasts days or weeks
+- Free to use (ISM bands)
+- Affordable hardware
+
+</div>
+<div>
+
+### Not for
+
+- High-bandwidth applications
+
+</div>
+</div>
+
+<div class="callout quiet">
+
+The way we are using it, this is **not** a ham radio mode. Though there are very interesting things going on with APRS LoRa on 70 cm. Stay tuned!
+
+</div>
+
+---
+
+<!-- _class: figure -->
+
+![](figures/rf-landscape.svg)
+
+---
+
+<!-- _class: section -->
+
+![bg right:38%](images/facets-section.svg)
+
+### Part two
+
+# Frequency bands & regulations
+
+---
+
+# NZ gets 915 MHz with no duty-cycle limit
+
+| Region | Frequency | Power limit | Duty cycle |
 |--------|-----------|-------------|------------|
-| NZ/AU | 915-928 MHz | 30 dBm EIRP | 100% |
-| EU | 868 MHz | 14 dBm | 1-10% |
-| US | 902-928 MHz | 30 dBm | 100% |
+| **NZ / AU** | **915 to 928 MHz** | **30 dBm EIRP** | **100%** |
+| EU | 868 MHz | 14 dBm | 1 to 10% |
+| US | 902 to 928 MHz | 30 dBm | 100% |
 | Asia | 433 MHz | Varies | Varies |
 
-**New Zealand**: We use the 915 MHz band (ANZ region)
+<div class="callout">
 
-Note: We're fortunate in NZ to have no duty cycle restrictions on 915 MHz, unlike Europe. This means better mesh performance.
+We're fortunate in NZ to have no duty-cycle restrictions on 915 MHz, unlike Europe. That means better mesh performance. We use the ANZ region settings.
 
-----
+</div>
 
-## Power Limits & Antenna Gain
+---
 
-**NZ Regulations (915 MHz ISM)**:
+# 30 dBm EIRP is the ceiling, antenna included
+
+**NZ regulations (915 MHz ISM)**
+
 - 30 dBm EIRP maximum
-- EIRP = Transmit Power + Antenna Gain - Cable Loss
+- EIRP = transmit power + antenna gain − cable loss
+- EIRP: Effective Isotropic Radiated Power
 
-EIRP - Effective Isotropic Radiated Power 
-
-**Example**:
-- 22 dBm transmit (158 mW)
-- 8 dBi antenna
-- 30 dBm EIRP ✅
-
-
----
-
-# Chirp Spread Spectrum
-
-----
-
-## What is CSS?
-
-We're trading off sensitivity and data rate while operating in a fixed-bandwidth channel (62.5-500kHz)
-
-**Chirp Spread Spectrum** = LoRa's secret sauce
-
-- Frequency "chirps" sweep across bandwidth
-- Encodes data in chirp timing/frequency
-- Extremely noise-resistant 
-- Can decode signals below noise floor
-- Trade-off: bitrate / speed vs. range vs. reliability
+<div class="stats">
+<div class="stat"><span>22 dBm</span><small>transmit (158 mW)</small></div>
+<div class="stat"><span>+ 8 dBi</span><small>antenna</small></div>
+<div class="stat krill"><span>30 dBm</span><small>EIRP: right at the limit</small></div>
+</div>
 
 ---
 
+<!-- _class: section -->
 
-![width:700 ctr](https://pad.duckles.nz/uploads/4285e350-a8fa-4d7e-a9bc-b8f83533e215.png)
+![bg right:38%](images/facets-section.svg)
 
----
+### Part three
 
-![ctr](https://media1.tenor.com/m/jnkEmKebeKsAAAAd/science-explode.gif)
-
----
-
-Fourier transform: time domain, frequency domain and time-frequency domain. 
-
-![width:700 ctr](https://pad.duckles.nz/uploads/acc7e431-7dbc-4d25-8c15-fc30ec3640d4.png)
-
-----
-
-![width:900 ctr](https://pad.duckles.nz/uploads/394c86f4-c2fb-4a13-be90-457431b1fc4b.gif)
-
-----
-
-![width:900 ctr](https://pad.duckles.nz/uploads/3f35ca33-8c44-4b5d-8496-40402b328e33.png)
-
-----
-
-![width:900 ctr](https://pad.duckles.nz/uploads/dc511b0a-4c85-4017-99c4-040736d46af0.gif)
-
-----
-
-**Recap:**
-- Spreading factor causes more time-on-air, thus more power use and more processing
-- However, SF 11 signal resolving power is 😱
-- The magic of signal processing 
-  - Multiply down-chirp to get constant tone, 
-  - FFT to pull out tones as symbols
-- Spreading Factors do not interfere with each other
+# Chirp spread spectrum
 
 ---
 
-Actual repeater update packet time in vertical (earlier lower) just like a waterfall on your HF rig / SDR. See preamble and chips of chirps.
+# What is CSS?
 
-![width:1000 ctr](https://pad.duckles.nz/uploads/7761b32c-59cd-48a0-906b-0d3d5b73e781.png)
+We're trading off sensitivity and data rate while operating in a fixed-bandwidth channel (62.5 to 500 kHz).
 
-Captured using SDR++ on a HackRF (note LoRa preamble followed by data chips)
+**Chirp spread spectrum** is LoRa's secret sauce:
 
----
-
-
-![width:280 ctr](https://pad.duckles.nz/uploads/9704a237-99cf-4cd3-8101-8fb261563718.png)
-
-
----
-
-![ctr](https://media1.tenor.com/m/JaS15CLLVo8AAAAC/science.gif)
-
+- Frequency "chirps" sweep across the bandwidth
+- Data is encoded in chirp timing and frequency
+- Extremely noise-resistant
+- Can decode signals below the noise floor
+- Trade-off: bit rate and speed vs. range vs. reliability
 
 ---
 
-# Open Mesh Network Firmwares
+<!-- _class: figure -->
 
-----
-
-## Open Mesh network firmwares
-
-These are community developed open source projects that are using the low-cost, low-power hardware has created a flourishing in software / firmware experimentation with this hardware. 
-
-- [MeshCore](https://meshcore.io) - Newest kid on the block based on failure modes of meshtastic
-- [Meshtastic](http://meshtastic.org) - been around a bit longer, but has some fundamental design flaws. 
-- [Reticulum](https://reticulum.network/) - a tool for building networks, including LoRa
-
-
-----
-
-## Some MeshCore terms 
-
-- **Companion Node**: Individual device on the mesh which is usually bluetooth paired to an app on your phone.
-- **Repeater**: A fixed node that extends local / regional coverage.
-- **Room Server**: A caching node that saves the last 32 messages for forwarding to nodes that have been offline.
-- **Hop**: Message relay between nodes
-
-----
-
-# What happened to Meshtastic!?
-
-- Two major flaws 
-    - Flood always model causing a traffic Denial of Service 
-    - Internet connected MQTT further causing airtime utilization overwhelm
-
-- MeshCore created to make a firmware that learns from Meshtastic's mistakes. 
-    - Fixed repeaters (don't put a "repeater" in your car...PLEASE!)
-    - Companion nodes 
-    - Room Servers
-    - Observer nodes and more
-
---- 
-
-## Meshcore Community 
-
-The community had a wee schism this last week. It seems to have mostly been EVERYONE leaving the guy who runs the (.co.uk) domain in the dust and moving to meshcore.io 
-
-![ctr](https://media1.tenor.com/m/k3uajg33vtYAAAAC/itll-be-totally-fine-elle-evans.gif)
-
-To get involed in the MeshCore.io discord server go to - https://discord.gg/YGpzsftS
-
-
-----
-
-## MeshCore Presets in New Zealand
-
-There have been two presets in NZ. Spreading factor of 11 does make for better interference resistance and weak link connections, however much of NZ is using SF 7, so the Dunedin communtiy has switched as well. 
-
-| Preset           | Spreading Factor | Channel | Coding Rate |
-| ---------------- | ---------------- | ------- | ----------- |
-| NZ Narrow Preset | 7                | 62.5kHz | 5           |
-| NZ Preset        | 11               | 250kHz  | 5           |
-
-Talk of switching "NZ Preset to be SF 7 / 62.5kHz Preset"
+![](figures/chirp.svg)
 
 ---
 
-
-
-
+![bg contain](https://media1.tenor.com/m/jnkEmKebeKsAAAAd/science-explode.gif)
 
 ---
 
-# Hardware Options
+<!-- _class: figure -->
 
-----
+![](figures/three-views.svg)
 
-## LoRa Devices 
+<!--
+Fourier transform: time domain, frequency domain and time-frequency domain.
+The original image for this slide was lost with the pad; this chart replaces it.
+-->
 
-- Have a microcontroller - 
-    - ESP32 variant - higher power consumption (though creative power management firmwares are closing this gap)
-    - nRF vairant - MUCH lower power consumption 
-- Have an RF board, these days often the [SEMTECH SX1262](https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/RQ000008nKCH/hp2iKwMDKWl34g1D3LBf_zC7TGBRIo2ff5LMnS8r19s)
-- Using the SPI (Serial Peripheral Interface) I/O you can drive a SEMTECH board with anything you want.
+---
 
-----
+<!-- _class: figure -->
 
-![width:900 ctr](https://pad.duckles.nz/uploads/e8b0a570-7570-425c-8eed-a8747211b342.png)
+![](figures/sf-tradeoff.gif)
 
-----
+---
 
-## SX1262 is enabling this low-cost, low-power boom in hardware
+<!-- _class: figure -->
 
-SX1262
+![](figures/dechirp.svg)
 
-- Current recommended chip
-- 150-960 MHz
-- 22dBm Transmit - ~ 0.154 W
-- Much lower power usage (~5mA RX vs ~100mA)
-- Better sensitivity (-148 dBm vs -137 dBm)
+---
+
+<!-- _class: figure -->
+
+![](figures/noise-resistance.gif)
+
+---
+
+# Recap: spreading buys sensitivity with time
+
+- Spreading factor causes more time on air, so more power use and more processing
+- However, SF11's signal-resolving power is 😱
+- The magic of signal processing:
+  - multiply by a down-chirp to get a constant tone
+  - FFT to pull the tones out as symbols
+- Spreading factors do not interfere with each other
+
+---
+
+<!-- _class: screenshot -->
+
+# A real repeater packet, seen on a waterfall
+
+Packet time runs up the page (earlier is lower), just like a waterfall on your HF rig or SDR. See the preamble, then the chirps.
+
+![w:1100](images/sdr-waterfall.png)
+
+<span class="small muted">Captured with SDR++ on a HackRF. Note the LoRa preamble followed by the data chirps.</span>
+
+---
+
+![bg contain](images/meshcore-app.png)
+
+---
+
+![bg contain](https://media1.tenor.com/m/JaS15CLLVo8AAAAC/science.gif)
+
+---
+
+<!-- _class: section -->
+
+![bg right:38%](images/facets-section.svg)
+
+### Part four
+
+# Open mesh network firmwares
+
+---
+
+# Three open firmwares run on the same cheap radios
+
+These are community-developed open source projects. Low-cost, low-power hardware has created a flourishing of software and firmware experimentation.
+
+- [**MeshCore**](https://meshcore.io): the newest kid on the block, designed around Meshtastic's failure modes
+- [**Meshtastic**](http://meshtastic.org): been around a bit longer, but has some fundamental design flaws
+- [**Reticulum**](https://reticulum.network/): a tool for building networks, including over LoRa
+
+---
+
+# Some MeshCore terms
+
+- **Companion node**: an individual device on the mesh, usually paired over Bluetooth to an app on your phone
+- **Repeater**: a fixed node that extends local or regional coverage
+- **Room server**: a caching node that saves the last 32 messages for nodes that have been offline
+- **Hop**: one message relay between nodes
+
+---
+
+# What happened to Meshtastic?
+
+<div class="columns">
+<div>
+
+### Two major flaws
+
+- A flood-always model causing a traffic denial of service
+- Internet-connected MQTT further overwhelming airtime
+
+</div>
+<div>
+
+### MeshCore learns from them
+
+- Fixed repeaters (don't put a "repeater" in your car... please!)
+- Companion nodes
+- Room servers
+- Observer nodes and more
+
+</div>
+</div>
+
+---
+
+# The MeshCore community moved to meshcore.io
+
+The community had a wee schism this last week. It mostly seems to be everyone leaving the person who runs the .co.uk domain in the dust and moving to meshcore.io.
+
+![h:300](https://media1.tenor.com/m/k3uajg33vtYAAAAC/itll-be-totally-fine-elle-evans.gif)
+
+Get involved on the MeshCore.io Discord: https://discord.gg/YGpzsftS
+
+---
+
+# Most of NZ, and now Dunedin, runs SF7
+
+There have been two presets in NZ. SF11 gives better interference resistance and weak-link connections, but much of NZ uses SF7, so the Dunedin community has switched as well.
+
+| Preset | Spreading factor | Channel | Coding rate |
+| --- | --- | --- | --- |
+| **NZ Narrow** | **7** | **62.5 kHz** | **5** |
+| NZ | 11 | 250 kHz | 5 |
+
+<div class="callout quiet">
+
+Talk of switching "NZ Preset" to SF7 / 62.5 kHz as well.
+
+</div>
+
+---
+
+<!-- _class: section -->
+
+![bg right:38%](images/facets-section.svg)
+
+### Part five
+
+# Hardware options
+
+---
+
+# Every LoRa device is a microcontroller plus a radio
+
+- A microcontroller:
+  - **ESP32**: higher power consumption (though creative power-management firmwares are closing the gap)
+  - **nRF**: much lower power consumption
+- An RF board, these days often the [Semtech SX1262](https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/RQ000008nKCH/hp2iKwMDKWl34g1D3LBf_zC7TGBRIo2ff5LMnS8r19s)
+- Over SPI (Serial Peripheral Interface) you can drive a Semtech board with anything you want
+
+---
+
+<!-- _class: screenshot -->
+
+# Inside the SX1262
+
+![w:1000](images/sx1262-block-diagram.png)
+
+---
+
+# The SX1262 is behind the low-cost, low-power boom
+
+<div class="columns">
+<div>
+
+- The current recommended chip
+- 150 to 960 MHz
+- 22 dBm transmit, about 0.154 W
 - Longer range potential
-- ✅ This is what you want in new hardware at the moment
+- **This is what you want in new hardware right now**
 
-----
+</div>
+<div>
 
-## Hardware
+<div class="stats">
+<div class="stat krill"><span>~5 mA</span><small>receive current, vs ~100 mA</small></div>
+<div class="stat"><span>−148</span><small>dBm sensitivity, vs −137 dBm</small></div>
+</div>
+
+</div>
+</div>
+
+---
+
+# ESP32 or nRF52?
 
 | ESP32-based | nRF52-based |
 |-------------|-------------|
-| • More common<br>• WiFi + Bluetooth<br>• Cheaper<br>• More board options<br>• Higher power consumption | • Lower power (better battery)<br>• Bluetooth only (no WiFi)<br>• Fewer options<br>• Better for solar/portable |
+| More common | **Lower power (better battery)** |
+| Wi-Fi and Bluetooth | Bluetooth only (no Wi-Fi) |
+| Cheaper | Fewer options |
+| More board options | **Better for solar and portable** |
+| Higher power consumption | |
 
+---
 
+<!-- _class: compact -->
 
-----
-
-## Popular ESP32 Boards
+# Popular ESP32 boards
 
 | Feature | TTGO T-Beam | Heltec V3 |
 |---------|-------------|-----------|
-| **GPS** | ✅ Included | ❌ Not included |
+| **GPS** | Included | Not included |
 | **Battery** | 18650 battery | Not specified |
-| **Display** | OLED display option | ✅ Built-in display |
-| **Form Factor** | Complete package | Compact |
+| **Display** | OLED display option | Built-in display |
+| **Form factor** | Complete package | Compact |
 | **Antenna** | Standard connector | Good antenna connector |
-| **Price Range** | ~$25-35 USD | ~$20-30 USD |
-| **Best Use Case** | Most popular - complete solution | Great for portable nodes |
+| **Price range** | ~$25 to 35 USD | ~$20 to 30 USD |
+| **Best use** | Most popular complete solution | Great for portable nodes |
 
-----
+---
 
-## Popular nRF52 Boards
+# Popular nRF52 boards
 
-**RAK4631 WisBlock**
+### RAK4631 WisBlock
 
-- most popular nRF option
-- Modular (can include screen, sensors and/or GPS for more cost)
+- The most popular nRF option
+- Modular: add a screen, sensors or GPS for more cost
 - Excellent battery life
 - ~$40+ USD
 
-Other nRF options from Seed Studio and Heltec. 
+Other nRF options from Seeed Studio and Heltec.
 
+---
 
-----
+# GPS: yes for portable, optional for fixed
 
-## GPS: Yes or No?
+<div class="columns">
+<div>
 
-**Pros**:
+### Pros
+
 - Position sharing
 - Mapping capabilities
-- Time synchronization
+- Time synchronisation
 - Useful for mobile nodes
 
-**Cons**:
+</div>
+<div>
+
+### Cons
+
 - Higher power draw
 - Not needed for fixed repeaters
 - Privacy considerations
 
-**Recommendation**: Yes for portable, optional for fixed (but can be good for clock sync)
+</div>
+</div>
 
-----
+<div class="callout">
 
-## Display Options
-
-<div style="font-size:14px">
-
-| Feature | OLED (0.96" / 1.3") | E-Ink | None |
-|---------|---------------------|-------|------|
-| **Message Display** | ✅ Shows messages | ✅ Shows messages | ❌ Phone/computer only |
-| **Node Stats** | ✅ Shows node stats | ✅ Shows node stats | ❌ Phone/computer only |
-| **Battery Level** | ✅ Shows battery level | ✅ Shows battery level | ❌ Phone/computer only |
-| **Power Consumption** | Standard | Lower power | Lowest power |
-| **Sunlight Readability** | Standard | ✅ Readable in sunlight | N/A |
-| **Refresh Rate** | Fast | Slower refresh | N/A |
-| **Cost** | Adds ~$5-10 | More expensive | Cheapest |
-| **Best Use Case** | General purpose display | Outdoor/solar applications | Budget builds |
-
+**Recommendation:** yes for portable, optional for fixed (but it can be good for clock sync).
 
 </div>
 
-----
+---
 
-## Antenna Considerations
+<!-- _class: compact -->
 
-**Stock antennas**: Usually adequate for testing or around the house / town usage
+# Display options
 
-RAK kits come with a panel antenna for both 900MHz and Blutooth. 
+| Feature | OLED (0.96" / 1.3") | E-ink | None |
+|---------|---------------------|-------|------|
+| **Messages, node stats, battery** | Shown | Shown | Phone or computer only |
+| **Power consumption** | Standard | Lower | **Lowest** |
+| **Sunlight readability** | Standard | **Readable in sunlight** | n/a |
+| **Refresh rate** | Fast | Slower | n/a |
+| **Cost** | Adds ~$5 to 10 | More expensive | Cheapest |
+| **Best use** | General purpose | Outdoor and solar | Budget builds |
 
-**Upgrades**:
-- 3-5 dBi: Good all-around
-- 6+ dBi: Fixed repeaters 
+---
 
-**Connector types**:
+# Antenna considerations
+
+<div class="columns">
+<div>
+
+**Stock antennas** are usually adequate for testing, or around the house and town.
+
+RAK kits come with panel antennas for both 900 MHz and Bluetooth.
+
+### Upgrades
+
+- 3 to 5 dBi: good all-round
+- 6+ dBi: fixed repeaters
+
+</div>
+<div>
+
+### Connector types
+
 - SMA vs RP-SMA (check your board!)
-- U.FL/IPEX for internal
+- U.FL / IPEX for internal
 
-Like all things Amateur radio you can spend as much $$ as you have here. Or not 😄
+<div class="callout quiet">
 
-----
+Like all things amateur radio, you can spend as much $$ as you have here. Or not 😄
 
-## Build vs Buy
+</div>
 
-<div style="font-size:14px">
+</div>
+</div>
 
-| Aspect | Buy Ready-Made | Build Your Own |
+---
+
+<!-- _class: compact -->
+
+# Build or buy: your time has value
+
+| Aspect | Buy ready-made | Build your own |
 |--------|----------------|----------------|
-| **Setup Time** | ✅ Works out of box | ❌ Time investment |
-| **Deployment Speed** | ✅ Faster to deploy | ❌ Slower initial setup |
-| **Troubleshooting** | ✅ Less troubleshooting | ❌ Potential issues |
-| **Cost** | ❌ More expensive | ✅ Cheaper |
-| **Customization** | ❌ Less customization | ✅ Custom features |
-| **Learning Experience** | Limited | ✅ Learn more |
-| **Best For** | Quick deployment, time-sensitive projects | Hobbyists, custom requirements, budget builds |
-| **Note** | Nothing wrong with buying ready-made. Your time has value. | Building is rewarding if you enjoy it. |
+| **Setup time** | Works out of the box | Time investment |
+| **Troubleshooting** | Less | More potential issues |
+| **Cost** | More expensive | Cheaper |
+| **Customisation** | Less | Custom features |
+| **Learning** | Limited | Learn more |
+| **Best for** | Quick deployment | Hobbyists, custom needs, budget builds |
 
-</div> 
+<div class="callout quiet">
 
+Nothing wrong with buying ready-made: your time has value. Building is rewarding if you enjoy it.
 
-----
+</div>
 
-## Where to Buy
+---
 
-<div style="font-size:14px">
+<!-- _class: compact -->
 
-**AliExpress**
+# Where to buy
+
+<div class="columns">
+<div>
+
+### AliExpress
+
 - Cheapest option
-- 2-4 week shipping
-- Watch for correct frequency (915 MHz), though can usually be "fixed" with an antenna on SX1262 boards. 
+- 2 to 4 week shipping
+- Watch for the correct frequency (915 MHz), though on SX1262 boards it can usually be "fixed" with an antenna
 - Check seller ratings
+- Trick: sort your search by **Most orders**
 
-**What to watch for**:
+</div>
+<div>
+
+### What to watch for
+
 - Correct frequency band (915 MHz for NZ)
-- LoRa chip version 
+- LoRa chip version
 - Included accessories
 
-RAK Equipment should be bought from "RAK Official Store"
+<div class="callout">
 
-Trick on AliExpress, sort your search by "Most Orders"
+Buy RAK equipment from the **RAK Official Store**.
 
 </div>
 
-----
+</div>
+</div>
 
-## Recommended Starter Kit
+---
 
-<div style="font-size:14px">
+# Recommended starter kits
 
-**Budget Option (~$60 NZD)**:
-- RAK 19003 - Smaller RAK board
+<div class="columns">
+<div>
+
+### Budget (~$60 NZD)
+
+- RAK19003, the smaller RAK board
 - Basic stubby antenna
-- Panel antennas for 900MHz and Bluetooth
+- Panel antennas for 900 MHz and Bluetooth
 - USB cable
 
-**Complete Option (~$50 USD)**:
+</div>
+<div>
+
+### Complete (~$50 USD)
+
 - WisMesh Tag
-- So-so internal antenna, but great "package deal"
-- 1000mAh battery
-- GPS/GNSS Receiver
-- USB magnetic charger. 
+- So-so internal antenna, but a great package deal
+- 1000 mAh battery
+- GPS / GNSS receiver
+- USB magnetic charger
+
+</div>
+</div>
+
+---
+
+![bg contain](images/starter-kit-board-a.png)
+![bg contain](images/starter-kit-board-b.png)
+
+---
+
+![bg contain](images/wismesh-tag.png)
+
+---
+
+<!-- _class: section -->
+
+![bg right:38%](images/facets-section.svg)
+
+### Part six
+
+# Repeater pictures
+
+---
+
+# v0.0 Maori Hill
+
+<div class="columns wide-left">
+<div>
+
+![h:470](images/repeater-v0-maori-hill.jpg)
+
+</div>
+<div>
+
+| Component | Specification |
+|-----------|---------------|
+| Enclosure | Weatherised job box |
+| Board | RAK |
+| Antenna | 3 dB AliExpress "special" |
+| Battery | 2× 18650 |
+| Solar | 3 W |
+
+</div>
+</div>
+
+---
+
+# v1.0 Maori Hill and Waihola
+
+<div class="columns wide-left">
+<div>
+
+![h:470](images/repeater-v1-enclosure.jpg)
+
+</div>
+<div>
+
+| Component | Specification |
+|-----------|---------------|
+| Enclosure | AliExpress IP67 150×150×90 box |
+| Board | RAK |
+| Antenna | 5 dB N-type |
+| Battery | 2× 18650 |
+| Solar | 10 W |
+| Charge controller | AliExpress |
+
+</div>
+</div>
+
+---
+
+<!-- _class: screenshot -->
+
+# v1.0 Waihola
+
+![h:470](images/repeater-v1-waihola.jpg)
+
+---
+
+<!-- _class: screenshot -->
+
+# 3 to 4 weeks on two 18650s with no solar input
+
+![w:1000](images/repeater-battery-no-solar.png)
+
+<span class="small muted">RAK4631</span>
+
+---
+
+<!-- _class: screenshot -->
+
+# v0.0 Waihola and Halfway Bush
+
+![h:470](images/repeater-v0-waihola-halfway-bush.jpg)
+
+---
+
+# The v0.0 build is a Bunnings solar light
+
+<div class="columns wide-left">
+<div>
+
+![w:640](images/jardin-solar-light.png)
+
+</div>
+<div>
+
+| Component | Specification |
+|-----------|---------------|
+| Enclosure | Bunnings Jardin light |
+| Board | RAK |
+| Antenna | 3 dB AliExpress |
+| Battery | 1× "18650" |
+| Solar | 10 W |
+
+</div>
+</div>
+
+---
+
+<!-- _class: screenshot -->
+
+# Others: ZL4QC and ZL4MDS
+
+![w:1050](images/zl4qc-zl4mds-solar-lights.png)
+
+---
+
+# With a bit of 3D printing
+
+<div class="columns">
+<div>
+
+![h:440](images/3d-printed-end-cap.jpg)
+
+[STL on MakerWorld](https://makerworld.com/en/models/2327941-50deg-end-cap-for-bunnings-aldi-solar-light)
+
+</div>
+<div>
+
+![h:470](images/jardin-repeater-mounted.jpg)
+
+</div>
+</div>
+
+---
+
+<!-- _class: section -->
+
+![bg right:38%](images/facets-section.svg)
+
+### Part seven
+
+# Other node ideas
+
+---
+
+![bg contain](images/node-idea-hio77.jpg)
+
+<!-- Shared by Hio77 in Discord: https://discord.com/channels/1495203904898728149/1495412712505606315/1498203939043020883 -->
+
+---
+
+![bg contain](images/node-idea-cld1-a.jpg)
+![bg contain](images/node-idea-cld1-b.jpg)
+
+<!-- Seen on the NZ regional channel of the meshcore.io Discord, by jon CLD1: https://discord.com/channels/1495203904898728149/1495412712505606315/1497169474179170415 -->
+
+---
+
+<!-- _class: section -->
+
+![bg right:38%](images/facets-section.svg)
+
+### Part eight
+
+# Dunedin / Southland mesh
+
+---
+
+<!-- _class: screenshot -->
+
+# Region
+
+![h:470](images/map-region.jpg)
+
+---
+
+<!-- _class: screenshot -->
+
+# Lower South Island
+
+![h:470](images/map-lower-south-island.jpg)
+
+---
+
+<!-- _class: screenshot -->
+
+# Town
+
+![h:470](images/map-town.jpg)
+
+---
+
+# Maori Hill repeater view
+
+Sitting at 48% battery 😬
+
+<div class="callout warn">
+
+**Missing image.** This screenshot lived only on the HedgeDoc pad and wasn't in the April 29 PDF, so it couldn't be recovered. Drop it in as `images/maori-hill-repeater-view.png`.
 
 </div>
 
 ---
 
-![ctr](https://pad.duckles.nz/uploads/e17ac37f-b592-42d0-8b79-6f8e7a3647e8.png)
+<!-- _class: screenshot -->
 
+# Waihola and south
 
----
-
-![ctr](https://pad.duckles.nz/uploads/75e0384e-0f86-449c-9ffc-8660c83e7de4.png)
-
----
-
-
-
-![ctr width:800](https://pad.duckles.nz/uploads/9fb5ac14-383a-475f-9777-906108214d48.png)
-
+![h:470](images/map-waihola-south.jpg)
 
 ---
 
-📷 Repeater Pictures 
+# One more map
 
----
+<div class="callout warn">
 
-### v0.0 Maori Hill 
-![width:400 ctr](https://pad.duckles.nz/uploads/d4beb86d-4b03-401c-a11c-af5528c42b77.jpeg)
-
----
-
-| Component | Specification |
-|-----------|---------------|
-| Enclosure | Weatherized Job Box | 
-| Board | RAK |
-| Antenna | 3dB AliExpress "special" |
-| Battery | 2x 18650 |
-| Solar | 3W |
-
----
-
-### v1.0 Maori Hill and Waihola 
-
-![width:550 ctr](https://pad.duckles.nz/uploads/2c862aef-7243-4486-a73f-0609905b2d06.png)
-
-
----
-
-v1.0 Waihola 
-
-![ctr width:800](https://pad.duckles.nz/uploads/665228e9-cc0e-46f5-91e9-14cabcd9f6ac.png)
-
----
-
-<div class="ctr">
-
-| Component | Specification |
-|-----------|---------------|
-| Enclosure | AliExpress IP67 150x150x90 Box  | 
-| Board | RAK |
-| Antenna | 5dB N-Type |
-| Battery | 2x 18650 |
-| Solar | 10W |
-| Solar Charge Controller | AliExpress | 
+**Missing image.** The map after "Waihola and south" lived only on the HedgeDoc pad and couldn't be recovered. Drop it in as `images/map-south.png`, or cut this slide.
 
 </div>
 
-----
+---
 
-3-4 weeks on 2x 18650 batteries and no solar input
+<!-- _class: section -->
 
-![ctr width:800](https://pad.duckles.nz/uploads/adb0efe5-75c9-4514-a3a1-f2f779ecd8e4.png)
+![bg right:38%](images/facets-section.svg)
 
-RAK 4631
+### Part nine
 
+# The MeshCore app
 
 ---
 
-v0.0 Waihola and Halfway Bush
+# One app on phone, browser or desktop
 
-![ctr width:600](https://pad.duckles.nz/uploads/39444966-7041-4628-971c-dfca97e918f9.png)
+### Mobile
 
----
-
-![ctr](https://pad.duckles.nz/uploads/f5d34f76-6512-406a-8e18-a357898dd31d.png)
-
-
----
-
-| Component | Specification |
-|-----------|---------------|
-| Enclosure | Bunnings Jardin Light | 
-| Board | RAK |
-| Antenna | 3dB AliExpres |
-| Battery | 1x "18650" |
-| Solar | 10W |
-
-
----
-
-Others - ZL4QC and ZL4MDS 
-
-![width:800 ctr](https://pad.duckles.nz/uploads/45e78d06-5d1c-412e-bd68-a771563f76c5.png)
-
----
-
-With a bit of 3D printing 
-![ctr width:700](https://pad.duckles.nz/uploads/3b3ad46c-d1e5-4135-a142-3104601d2891.png)
-
-[STL](https://makerworld.com/en/models/2327941-50deg-end-cap-for-bunnings-aldi-solar-light?from=search#profileId-2543496)
-
-
----
-
-![height:600 ctr](https://pad.duckles.nz/uploads/cc688fa9-b4c8-4e08-9ec9-f7c064002542.png)
-
----
-
-# Other node ideas 
-
----
-
-![width:800 ctr](https://pad.duckles.nz/uploads/c95da899-ad8d-4e74-abaf-a2c67b051c0e.png)
-
-Shared by Hio77 in [Discord](https://discord.com/channels/1495203904898728149/1495412712505606315/1498203939043020883)
-
----
-
-![width:300 ctr](https://pad.duckles.nz/uploads/23d3575f-af13-4eff-9bcd-ccb48dae54d0.png)
-
-Seen on On [NZ regional-channel of meshcore.io Discord](https://discord.com/channels/1495203904898728149/1495412712505606315/1497169474179170415) by jon CLD1
-
-
----
-
-![width:300 ctr](https://pad.duckles.nz/uploads/a1e4f1d1-1265-4a16-9518-a63238c3b99d.png)
-
-Seen on On [NZ regional-channel of meshcore.io Discord](https://discord.com/channels/1495203904898728149/1495412712505606315/1497169474179170415) by jon CLD1
-
----
-
-
-# Dunedin / Southland Mesh
-
-
----
-
-### Region 
-
-![width:800 ctr](https://pad.duckles.nz/uploads/bb926012-8c46-4c8d-b378-8592f627007d.png)
-
-
-----
-
-### Lower South Island
-![width:800 ctr](https://pad.duckles.nz/uploads/72912ff2-045b-4a9c-84f5-b6232d865214.png)
-
-
----
-
-### Town
-![width:700 ctr](https://pad.duckles.nz/uploads/726379e9-c071-4673-8671-6ceb42e79ac8.png)
-
-
----
-
-### Maori Hill repeater view 
-
-Sitting at 48% battery :grimacing: 
-
-![ctr width:800](https://pad.duckles.nz/uploads/c3608a70-e4a1-47e4-b893-f7f341ea8e57.png)
-
-
----
-
-### Waihola and South
-![width:700 ctr](https://pad.duckles.nz/uploads/4b786ca3-b093-4a29-9e95-69a324c177bf.png)
-
-
----
-
-![width:800 ctr](https://pad.duckles.nz/uploads/13db49af-dee2-4c1b-a309-c8ead9ebe182.png)
-
-
----
-
-# MeshCore Application
-
-----
-
-## Available Apps
-
-**Mobile**:
 - iOS: MeshCore app
 - Android: MeshCore app
-- Browser: Chrome / Edge (chromium based browser required - no Firefox)
-- Connect via USB, Bluetooth or TCP
 
-----
+### Browser
 
-## Coverage Planning in MeshCore App
+- Chrome or Edge (a Chromium-based browser is required; no Firefox)
+- Connect over USB, Bluetooth or TCP
 
-These tools are in the MeshCore app under "Tools"
+---
 
-**Antenna Coverage**:
+# Plan coverage before you climb the hill
+
+These tools are in the MeshCore app under **Tools**.
+
+<div class="columns">
+<div>
+
+### Antenna coverage
+
 - Terrain-aware coverage prediction
 - Plan repeater locations
 
-**Line of Sight**:
-- Line-of-sight 
-- Check LoS between two points
+</div>
+<div>
 
+### Line of sight
 
---- 
+- Check line of sight between two points
 
-### Test coverage of a repeater node at Mt. Cargill 
-
-![width:800 ctr](https://pad.duckles.nz/uploads/bc99d944-6670-49c7-b7f9-62fe17f04cb7.png)
-
-
---- 
-
-### Test Line of Sight from Karatei Rd. to Bull Creek (ZL4UC's crib)
-
-![width:800 ctr](https://pad.duckles.nz/uploads/8ab83c14-0567-4d5f-815e-4b38461afb2e.png)
-
-
-----
-
-## Your First Node
-
-
-<div style="font-size:14px">
-
-**Step 1**: Choose hardware
-- Heltec, RAK, Seed Studio etc. 
-
-**Step 2**: Order from AliExpress
-- Verify 915 MHz frequency
-- Allow 2-4 weeks shipping
-
-**Step 3**: Flash firmware
-- Use web flasher at https://meshcore.io (easiest)
-
-**Step 4**: Configure
-- Set your name
-- Set region to NZ Narrow
-- Post in Public 
-
+</div>
 </div>
 
 ---
 
-## Thank You! 
+<!-- _class: screenshot -->
 
-https://jduckles.github.io/loratalk/
+# Test coverage of a repeater node at Mt Cargill
 
+![h:470](images/coverage-mt-cargill.jpg)
 
+---
 
+<!-- _class: screenshot -->
+
+# Test line of sight from Karatei Rd to Bull Creek (ZL4UC's crib)
+
+![h:470](images/line-of-sight-bull-creek.jpg)
+
+---
+
+# Your first node, in four steps
+
+<div class="columns">
+<div>
+
+1. **Choose hardware**: Heltec, RAK, Seeed Studio etc.
+2. **Order from AliExpress**: verify 915 MHz, allow 2 to 4 weeks
+
+</div>
+<div>
+
+3. **Flash firmware**: the web flasher at [meshcore.io](https://meshcore.io) is easiest
+4. **Configure**: set your name, set the region to **NZ Narrow**, post in Public
+
+</div>
+</div>
+
+---
+
+<!-- _class: lead -->
+<!-- _footer: '' -->
+<!-- _paginate: false -->
+
+![bg right:42% contain](images/whale-tile.svg)
+
+# Thank you!
+
+## Questions?
+
+[jduckles.github.io/loratalk](https://jduckles.github.io/loratalk/)

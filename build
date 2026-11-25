@@ -1,0 +1,10 @@
+#!/bin/sh
+# Rebuild the figures and the slides in the baleen style.
+#   ./build          figures + HTML
+#   ./build pdf      also a PDF (needs Chrome or Chromium on this machine)
+set -e
+python3 lora_figures.py
+npx @marp-team/marp-cli@4 lora_presentation.md --theme-set themes/baleen.css --html -o lora_presentation.html
+if [ "$1" = "pdf" ]; then
+  npx @marp-team/marp-cli@4 lora_presentation.md --theme-set themes/baleen.css --html --allow-local-files --pdf -o lora_presentation.pdf
+fi
